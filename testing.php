@@ -193,6 +193,20 @@ function extract_tags( $html, $tag, $selfclosing = null, $return_the_entire_tag 
 	return $html;
  }
  
+ function cut_general($html, $tag)
+ {
+ 	$nodes = extract_tags( $html, $tag );
+	foreach($nodes as $link){
+	 $taghash = "#".$tag."content#";
+		if($link['contents'] != $taghash){			     
+			 echo "<br> Contains simple text in $tag.Replacing it !";			
+		     $html = str_replace($link["contents"],$taghash , $html);				 			 
+			 echo "<br> Successfully replaced it !";
+		}
+	}
+	return $html;
+ }
+ 
   function cut_li($html, $tag)
  {	 
  	 $nodes = extract_tags( $html, $tag );

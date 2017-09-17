@@ -18,6 +18,8 @@
 	
 	$content = cut_pre($content, 'pre');
 	
+	$content = cut_general($content, 'form');
+	
 	//$content = preg_replace('/(<pre[^>]*>).*?<\/pre>/i', '$1#precontent#</pre>', $content);
 	//$content = preg_replace('/(<form[^>]*>).*?<\/form>/i', '$1#formcontent#</form>', $content);
 	
@@ -29,7 +31,7 @@
 	
 	$content = preg_replace('/(<option[^>]*>).*?<\/option>/i', '$1#optioncontent#</option>', $content);
 	
-	echo $content = preg_replace('/(<label[^>]*>).*?<\/label>/i', '$1#labelcontent#</label>', $content);
+    $content = preg_replace('/(<label[^>]*>).*?<\/label>/i', '$1#labelcontent#</label>', $content);
 
 	include_once("testing.php");
 	$content_result = test_heading($content,"h1");
@@ -189,6 +191,10 @@
 	{
 	echo "<br>Testing Successful for pre";
 	}
-
+     
+	 
+	 echo $content;
 	}
+	
+	
 ?>
