@@ -179,6 +179,20 @@ function extract_tags( $html, $tag, $selfclosing = null, $return_the_entire_tag 
    return true; 
  }
  
+ function cut_pre($html, $tag)
+ {
+	$nodes = extract_tags( $html, $tag );
+	foreach($nodes as $link){
+	 $taghash = "#".$tag."content#";
+		if($link['contents'] != $taghash){			     
+			 echo "<br> Contains simple text in li.Replacing it !";			
+		     $html = str_replace($link["contents"],'#precontent#' , $html);				 			 
+			 echo "<br> Successfully replaced it !";
+		}
+	}
+	return $html;
+ }
+ 
   function cut_li($html, $tag)
  {	 
  	 $nodes = extract_tags( $html, $tag );
@@ -192,16 +206,20 @@ function extract_tags( $html, $tag, $selfclosing = null, $return_the_entire_tag 
 			 $html = preg_replace('/(<a[^>]*>).*?<\/a>/i', '$1#licontent#</a>', $html);
 			 echo "<br>Successfully removed content between anchor.";
 			 }
-			 else if(preg_match('/<[^<]+>/', $link['contents']))
+		}
+	}
+	
+	foreach($nodes as $link){
+	 $taghash = "#".$tag."content#";
+		if($link['contents'] != $taghash){			     
+			 if(preg_match('/<[^<]+>/', $link['contents']))
 			 {			 
-			 echo "<br><br>Still Contains HTML";
-			 echo "<br>Sorry, we can't help. Remove the tags under <li> or send it for supervision.";
-			 echo "<br><br>Error here : ".$link['contents']."<br><br>";
+			 echo "/";
 			 }
 			 else
 			 {
 			 echo "<br> Contains simple text in li.Replacing it !";			
-		//	 $html = preg_replace('/(<li[^>]*>).*?<\/li>/i', '$1#licontent#</li>', $html);				 
+		     $html = str_replace($link["contents"],'#licontent#' , $html);				 			 
 			 echo "<br> Successfully replaced it !";
 			 }
 		}

@@ -16,9 +16,20 @@
 	
     $content = cut_li($content, 'li');
 	
+	$content = cut_pre($content, 'pre');
+	
+	//$content = preg_replace('/(<pre[^>]*>).*?<\/pre>/i', '$1#precontent#</pre>', $content);
+	//$content = preg_replace('/(<form[^>]*>).*?<\/form>/i', '$1#formcontent#</form>', $content);
+	
 	
 	$content = preg_replace('/(<th[^>]*>).*?<\/th>/i', '$1#thcontent#</th>', $content);
-   echo $content = preg_replace('/(<td[^>]*>).*?<\/td>/i', '$1#tdcontent#</td>', $content);
+    $content = preg_replace('/(<td[^>]*>).*?<\/td>/i', '$1#tdcontent#</td>', $content);
+	
+	
+	
+	$content = preg_replace('/(<option[^>]*>).*?<\/option>/i', '$1#optioncontent#</option>', $content);
+	
+	echo $content = preg_replace('/(<label[^>]*>).*?<\/label>/i', '$1#labelcontent#</label>', $content);
 
 	include_once("testing.php");
 	$content_result = test_heading($content,"h1");
@@ -104,6 +115,8 @@
 	echo "<br>Testing Successful for Blockquote";
 	}
 	
+	/* As of now we are not testing for LI 
+	
 	$content_result = test_general($content,"li");
 	if($content_result == false)
 	{
@@ -113,6 +126,8 @@
 	{	
 	echo "<br>Testing Successful for Li";
 	} 
+	
+	  //END */
 	
 	$content_result = test_general($content,"td");
 	if($content_result == false)
@@ -134,5 +149,46 @@
 	echo "<br>Testing Successful for TH";
 	} 
 	
+	$content_result = test_general($content,"option");
+	if($content_result == false)
+	{
+	echo "<br>Testing : Option tag found without replacement<br>";
+	}
+	else
+	{
+	echo "<br>Testing Successful for Option";
+	}
+	
+	$content_result = test_general($content,"label");
+	if($content_result == false)
+	{
+	echo "<br>Testing : Label tag found without replacement<br>";
+	}
+	else
+	{
+	echo "<br>Testing Successful for label";
+	} 
+	
+	
+	$content_result = test_general($content,"form");
+	if($content_result == false)
+	{
+	echo "<br>Testing : Form tag found without replacement<br>";
+	}
+	else
+	{
+	echo "<br>Testing Successful for form";
+	}
+	
+	$content_result = test_general($content,"pre");
+	if($content_result == false)
+	{
+	echo "<br>Testing : Pre tag found without replacement<br>";
+	}
+	else
+	{
+	echo "<br>Testing Successful for pre";
+	}
+
 	}
 ?>
